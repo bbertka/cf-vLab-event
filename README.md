@@ -25,6 +25,7 @@ Configure your app and service name and modify the ``SECRET_KEY`` in ``manifest.
     ---
     applications:
     - name: vLab
+      buildpack: https://github.com/cloudfoundry/python-buildpack.git
       instances: 1
       memory: 128M
       command: null
@@ -34,7 +35,7 @@ Configure your app and service name and modify the ``SECRET_KEY`` in ``manifest.
         SECRET_KEY: 'aadc-t8j*i5a7^y9@d^$at#g0!j_h=h++5stj=nb7z8u#l_y#&'
         DEBUG: 'False'
 
-Modify ``init_db.sh`` which will be run once to initialize the DB:
+If you desire, modify ``init_db.sh`` admin user/pass, this script must be run once before main push to initialize the DB:
 
     #!/bin/sh
     echo "------ Create database tables ------"
@@ -51,6 +52,10 @@ Modify ``init_db.sh`` which will be run once to initialize the DB:
 
 Deploy to Cloud Foundry:
 -------------
+Vendor The Dependencies
+
+    mkdir vendor
+    pip install --download vendor -r requirements.txt
 
 Login to Pivtoal Web Services and create ElephantSQL service:
 
